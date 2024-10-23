@@ -1,0 +1,17 @@
+If a student is having trouble with their admission, financial aid, or paying fees then transfer them to the Admissions and Records office, Financial Aid, or the cashier. The help desk is for students having trouble accessing the college’s network. If the student needs something modified in their records, they should be transferred to Admissions and Records.
+
+If someone has not been a student at the college for longer than 2 years then their email would be archived and they would not have access to their email. They would get a new email after enrolling in the college again, which would also produce a new inbox, so any information stored on the old Outlook account would be lost. 
+
+If the first part of a student's email exceeds 20 characters long, then their username will still be the first part of their email, except the first few characters will be truncated in order for the username to be 20 characters long.
+
+If a student is having trouble logging in, try to pinpoint what it is exactly that they are trying to access: Wingspan, email, or Canvas. Then, go from there to determine what the best course of action would be to help them.
+
+If someone says that they can't get into their email, first verify that they are signing in to the right website. It should be Outlook, reached by going through my.citruscollege.edu and clicking on the Student Email box. If not, suggest that they sign in through an incognito tab or that they clear their cache. Then, ask if it allows them to enter a password after they submit their email. If it does not, their email may have been archived or it may not be activated, so have them contact TeCS directly. If the student can log in to their email but it shows them an error page, have them call or email TeCS.
+
+If a student is having trouble signing in to Wingspan, most often the solution is to reset their password.
+
+If a student needs their phone number reset for their email, have them call or email TeCS.
+
+If the person calling is not a student, then if they need any of their information modified such as their password reset, have them call TeCS directly.
+
+If a student is new or recently returning, some issues with their email could arise because they may not have completed orientation. In this case, have them contact Admissions and Records. 
