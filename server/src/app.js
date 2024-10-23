@@ -70,7 +70,8 @@ app.get('/servercheck', async (req, res) => {
 app.get('/test', async (req, res) => {
     try {
         const apiResponse = { message: `API test successful. Test count: ${++testCount}` }
-        // Send the API response as JSON
+        // Send the API response as JSON with a 2 second delay
+        res = await setTimeout(2000, res)
         res.json(apiResponse)
     } catch (error) {
         // Handle errors here

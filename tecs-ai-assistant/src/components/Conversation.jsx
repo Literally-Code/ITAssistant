@@ -6,10 +6,11 @@ import AssistantMessage from "./AssistantMessage";
 function Conversation()
 {
     const [messages, setMessages] = useState([]);
-
-    const [isHoldingShift, setIsHoldingShift] = useState(false);
+    const [responseLoaded, setResponseLoaded] = useState(false);
     const [content, setContent] = useState('');
     const [response, setResponse] = useState('');
+
+    const [isHoldingShift, setIsHoldingShift] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const placeholderText = 'Send a message...';
 
@@ -27,17 +28,25 @@ function Conversation()
     useEffect(() => {
         if (response != '')
         {
-            setMessages([...messages, {id: messages.length, agent: 'assistant', text: response}]);
+            setLastMessageText(response);
             setResponse('');
+            setResponseLoaded(true);
         }
     }, [response])
 
     // Functions
 
     const handleReturn = () => {
-        setMessages([...messages, {id: messages.length, agent: 'user', text: content}]); // Make two messages, have second message be the 'loading' message?
+        setResponseLoaded(false)
+        setMessages([...messages, {id: messages.length, agent: 'user', text: content}, {id: messages.length + 1, agent: 'assistant', text: 'Thinking...'}]);
         setContent('');
         fetchTest(setResponse);
+    }
+
+    const setLastMessageText = (text) => {
+        let updatedMessages = [...messages];
+        updatedMessages[updatedMessages.length-1].text = text;
+        setMessages(updatedMessages)
     }
 
     const isButtonDisabled = () => {
@@ -81,11 +90,11 @@ function Conversation()
                 {messages.map((message) => (
                     message.agent === 'user' ?
                     <UserMessage key={message.id} text={message.text === '' ? '...' : message.text} /> :
-                    <AssistantMessage key={message.id} text={message.text === '' ? '...' : message.text} />
+                    <AssistantMessage key={message.id} isLoading={message.id == messages.length-1 && !responseLoaded} text={message.text === '' ? '...' : message.text} />
                 ))}
                 <div className={messages.length > 0 ? "hidden" : ""}>
                     <h1 className="text-3xl font-bold text-black">Citrus College AI Tech Support</h1>
-                    <p className="text-black animate-pulse">Send a message to get started!</p>
+                    <p className="text-black animate-bounce pt-1">Send a message to get started!</p>
                 </div>
             </div>
             <div className={"flex items-end sticky bottom-5 rounded-xl p-2 h-max bg-blue-400"}>
