@@ -1,32 +1,52 @@
-require('dotenv').config()
+import { configDotenv } from 'dotenv'
+import { OpenAI } from 'openai'
+import { setTimeout } from 'timers/promises'
+import * as bodyParser from 'body-parser'
+import * as fs from 'fs/promises'
+import * as path from 'path'
+import express from 'express'
+import cors from 'cors'
 
-const openAI = require('openai')
-const axios = require('axios')
-const express = require('express')
-const cors = require('cors')
-const yargs = require('yargs')
+configDotenv()
 const app = express()
-const bodyParser = require('body-parser')
-const { setTimeout } = require('timers/promises')
 const port = 3000
-var testCount = 0;
+const systemInstructionsLocation = '../docs/SystemInstructions.txt'
+const additionalInstructionsLocation = '../docs/additional_sysinstr'
+var systemInstructions = '';
 
-const openAIClient = new openAI.OpenAI({apiKey: process.env.OPENAI_API_KEY})
-const assistant = openAIClient.beta.assistants.retrieve("asst_FVaaTMv8M23SvADtsU6yL4WC")
+const openAIClient = new OpenAI() /*new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY, 
+    organization: 'org-7dwV2PNPW9mS7h9IabMCDJs0', 
+    project: 'proj_lULP9PLKPUcatb9hOHJ5Rns0'
+})*/
+// const assistant = openAIClient.beta.assistants.retrieve("asst_FVaaTMv8M23SvADtsU6yL4WC")
 
 const functions = {
-    "password_reset": (call, arguments) => {
-        arguments = JSON.parse(arguments)
+    "password_reset": (call, args) => {
+        args = JSON.parse(args)
         const result = { tool_call_id: call.id, output: "" }
-        const studentID = arguments.student_id
-        const birthdate = arguments.birthdate
-        const contact_info = arguments.contact_info ? arguments.contact_info : "Not provided"
-        const summary = arguments.summary ? arguments.summary : "Not provided"
+        const studentID = args.student_id
+        const birthdate = args.birthdate
+        const contact_info = args.contact_info ? args.contact_info : "Not provided"
+        const summary = args.summary ? args.summary : "Not provided"
 
         console.log("PWR submission:", studentID, birthdate, contact_info, summary)
         result.output = "Password reset request submitted."
         return result
     }
+}
+
+const readSystemInstructions = async () => { 
+    let instructions = await fs.readFile(systemInstructionsLocation, 'utf-8');
+    const files = await fs.readdir(additionalInstructionsLocation, 'utf-8');
+
+    for (let file of files) {
+        const filePath = path.join(additionalInstructionsLocation, file);
+        let fileContent =  await fs.readFile(filePath, 'utf-8', );
+        instructions += '\n' + fileContent;
+    }
+
+    return instructions;
 }
 
 function processTools(toolCalls) {
@@ -49,8 +69,8 @@ function processTools(toolCalls) {
 
 // Root route
 app.use(express.static('tecs-ai-assistant/dist'))
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cors({
     origin: 'http://localhost:5173'
 }));
@@ -69,13 +89,13 @@ app.get('/servercheck', async (req, res) => {
 
 app.get('/test', async (req, res) => {
     try {
-        const apiResponse = { message: `API test successful. Test count: ${++testCount}` }
+        const apiResponse = { message: `API test successful`, status: 'success' }
         // Send the API response as JSON with a 2 second delay
         res = await setTimeout(2000, res)
         res.json(apiResponse)
     } catch (error) {
         // Handle errors here
-        res.status(500).json({ error: 'Internal Server Error' })
+        res.status(500).json({ error: 'API error', message: 'Something went wrong on our end.', status: 'error' })
     }
 })
 
@@ -133,14 +153,40 @@ app.post('/getresponse', async (req, res) => {
     }
 })
 
-app.listen(port, () => {
+app.post('/query', async (req, res) => {
+    try {
+        const requestData = req.body // Get the data from the client
+        const apiResponse = { message: "" }
+        const conversation = requestData.conversation
+        let openAIQuery = {};
+
+        openAIQuery = {
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: systemInstructions }, 
+                ...conversation
+            ],
+        };
+
+        const completion = await openAIClient.chat.completions.create(openAIQuery);
+        apiResponse.message = completion.choices[0].message.content
+        apiResponse.status = 'success'
+        res.json(apiResponse)
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' })
+        console.log(error)
+    }
+})
+
+app.listen(port, async () => {
+    systemInstructions = await readSystemInstructions()
     console.log(`Server listening on port ${port}`)
 })
 
 // Clear any threads
 
-const threads = []
+// const threads = []
 
-for (let thread of threads) {
-    openAIClient.beta.threads.del(thread)
-}
+// for (let thread of threads) {
+//     openAIClient.beta.threads.del(thread)
+// }

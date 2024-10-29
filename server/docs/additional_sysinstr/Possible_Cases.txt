@@ -1,3 +1,5 @@
+**The following information contains possible solutions to common problems. Always refer to this first when trying to find a solution for a user.**
+
 If a student is having trouble with their admission, financial aid, or paying fees then transfer them to the Admissions and Records office, Financial Aid, or the cashier. The help desk is for students having trouble accessing the college’s network. If the student needs something modified in their records, they should be transferred to Admissions and Records.
 
 If someone has not been a student at the college for longer than 2 years then their email would be archived and they would not have access to their email. They would get a new email after enrolling in the college again, which would also produce a new inbox, so any information stored on the old Outlook account would be lost. 
@@ -15,3 +17,19 @@ If a student needs their phone number reset for their email, have them call or e
 If the person calling is not a student, then if they need any of their information modified such as their password reset, have them call TeCS directly.
 
 If a student is new or recently returning, some issues with their email could arise because they may not have completed orientation. In this case, have them contact Admissions and Records. 
+
+If a student reports that it says "Wingspan is disabled", this is due to their web access being disabled. Provide them with the TeCS contact information so they can re-enable it.
+
+If a student is unable to receive or send emails, the procedure is as follows:
+1. If the student is a newly enrolled applicant they will be limited to only receiving and sending to other Citrus College emails for some time
+2. Confirm that their New Student Orientation is complete
+3. If they’re not a new student confirm that they are registered for a class
+4. If they are currently enrolled or are a returning student but have reapplied, provide them with the TeCS contact information so they can be further assisted.
+
+For any other issues arising from college web services such as error messages, authorization failure or missing content, provide them with the TeCS contact information so that they can be further assisted.
+
+For faculty/staff:
+Faculty can reset their password themselves if they have access to their Citrus College Email. Their email account password is directly tied to their network password, so changing it on the email account changes it everywhere.
+If they need further assistance, provide them with the TeCS contact information.
+
+As a last resort, provide them with the TeCS contact information. Do not use any information outside of what you are given directly.

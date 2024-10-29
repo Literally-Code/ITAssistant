@@ -1,52 +1,89 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL
 
-export const fetchTest = (setResult) => {
-    fetch(`${API_BASE_URL}/test`)
-        .then((response) => response.json())
-        .then((data) => {
-            setResult(data.message)
-        })
-        .catch(error => {
-            console.error('Error connecting to the API')
-        })
+const handleResponseError = (error) => {
+    console.error("An error occured when fetching from the server\n", error);
+    return {message: 'Something went wrong.', status: 'error'};
 }
 
-export const getAssistantResponse = (prompt, threadID) => {
-    fetch(`${API_BASE_URL}/getresponse`, {
+function setCookie(name, value, expirationDays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (expirationDays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+const getCookie = (name) => {
+    const value = `;${document.cookie}`;
+    const parts = value.split(`;${name}=`);
+    if (parts.length === 2)
+        return parts.pop().split(';').shift();
+}
+
+export const fetchTest = async () => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/test`);
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        return handleResponseError(error);
+    }
+}
+
+export const getAssistantResponse = async (conversation) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/query`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
             },
             body: JSON.stringify(
                 {
-                    thread_id: threadID,
-                    message: prompt.value
+                    conversation: conversation
                 }
             )
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Result message
-        })
-        .catch(error => {
-            console.error('Error:', error)
-        })
+        });
+        const json = await response.json();
+        return json
+    } catch (error) {
+        return handleResponseError(error)
+    }
 }
 
-// TODO: Make this work. Cookies n stuff ykwim
-const initConversation = async () => {
-    const cookie = getCookie("thread_id")
-    if (cookie != undefined && cookie != "") {
-        return cookie
-    }
-    const response = await fetch(`${API_BASE_URL}/loadconversation`)
+// TODO: Secure conversation thread IDs
 
-    if (!response.ok) {
-        errorOccur()
-        return
+const createConversation = async () => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/loadconversation`)
+        const data = await response.json()
+        
+        return data.thread_id
+    } catch (error) {
+        console.error("Cannot load conversation\n", error);
+        return;
     }
+}
 
-    const data = await response.json()
-    setCookie("thread_id", data.thread_id, 7)
-    return data.thread_id
+const clearConversation = async () => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/clearconversation`, 
+            {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(
+                    {
+                        thread_id: threadID,
+                        message: prompt.value
+                    }
+                )
+            }
+        )
+        const data = await response.json()
+        
+        return data.thread_id
+    } catch (error) {
+        console.error("Cannot load conversation\n", error);
+        return;
+    }
 }

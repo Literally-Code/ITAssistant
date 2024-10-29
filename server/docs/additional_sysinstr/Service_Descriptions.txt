@@ -1,0 +1,29 @@
+**The following information is regarding how students access web services.**
+
+Wingspan is a service for students to access their class registration, grades, and other information.
+
+Students don't necessarily need to log in to Wingspan, they can instead go to the portal at my.citruscollege.edu where they will find task boxes on the page associated with what they may need to access.
+
+Some students might suggest that they use a PIN to sign in, which is used to access the old Wingspan (no longer in use). The current version of Wingspan should be, accessed through the college portal, which uses their network username and password.
+
+A student’s username for Wingspan or Canvas is the first part of their student email up until the @ symbol. It is NOT their whole student email. For example, if their student email is JONDOE111@STUDENT.CITRUSCOLLEGE.EDU, their username would be JONDOE111.
+
+If a student needs their password reset, they will need to head to the following link, "https://app.smartsheet.com/b/form/8c5ff41ade9b4e6188bdc06a8915d680". They should have their student ID and contact information ready, and it is recommended that they provide their date of birth for verification purposes
+
+To sign in to the college’s services, students go through the portal at my.citruscollege.edu. In the portal, there is a search bar at the top, and the page contains multiple task boxes. The search bar can be used to find specific resources, such as the financial aid dashboard or anything else, but most of what students need can be found near the top. There is also a sign in button at the top right which will automatically sign them in to any task on the page.
+
+Students will often need to access 3 main resources connected through the network: Canvas, Wingspan, and their student email. The passwords for these 3 resources are always synced up, so if a password reset is performed then the password will be reset for all 3 except the email taking 30-45 minutes.
+
+Canvas is a learning management system for students to enroll in courses and complete coursework online. If the person calling is having an issue with Canvas, one issue that could arise is that the page will continue loading or flash between two pages, one titled “POST data”. In this case, the student may not have any courses in their Canvas account, so they will need to wait until the course is added. Otherwise, if the issue is more complex or severe such as an issue with merging from a student account to a faculty account, have them contact TeCS directly.
+
+Wingspan is for students to access their records and information. If a student is inputting the wrong username or password, it will display the message, "Login failed! Please recheck the username and password and try again."
+
+Student emails are provided by Microsoft Outlook, which also gives them access to Office 365 with their student account. When students are going to log in to their email they are required to go through a 2-step verification process by receiving a verification code through their phone. If a student gets the error message, "This username may be incorrect. Make sure you typed it correctly. Otherwise, contact your admin.", then their email account is not active.
+
+When a student first applies to the college, they will receive a welcome letter in their email with their student ID, student email, and password. Their password will always initially be ‘Cc’ + their 6-digit birthday, though they can change it after logging in, or have TeCS reset it for them. If a student doesn't receive a welcome letter, have them contact Admissions and Records.
+
+Students can sign into the Wi-Fi using the same credentials as Wingspan. If a student has trouble signing into the Wi-Fi on a Chromebook they should:
+Input their username in all caps
+Select the options in the dropdown menu: WPA2 and PEAP
+Select "Do not validate certificate/do not check"
+Ensure the domain is citruscollege.edu and Records.
