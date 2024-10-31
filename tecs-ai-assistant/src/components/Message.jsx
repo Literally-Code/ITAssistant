@@ -35,17 +35,16 @@ function Message({ agent, status, text })
         if (index > lastIndex) {
             parts.push(text.slice(lastIndex, index));
         }
-        // Add the link as a React <a> element
+        
         parts.push(
             <a className="text-blue-700" target="_blank" key={index} href={url} rel="noopener noreferrer">
                 {linkText}
             </a>
         );
-        // Update lastIndex to the end of the current match
+        
         lastIndex = index + match.length;
     });
 
-    // Add remaining text after the last link, if any
     if (lastIndex < text.length) {
         parts.push(text.slice(lastIndex));
     }

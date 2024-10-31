@@ -2,7 +2,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL
 
 const handleResponseError = (error) => {
     console.error("An error occured when fetching from the server\n", error);
-    return {message: 'Something went wrong.', status: 'error'};
+    return {message: 'Could not connect to the server. Check your internet connection and try again.', status: 'error'};
 }
 
 function setCookie(name, value, expirationDays) {

@@ -154,12 +154,12 @@ app.post('/getresponse', async (req, res) => {
 })
 
 app.post('/query', async (req, res) => {
-    try {
-        const requestData = req.body // Get the data from the client
-        const apiResponse = { message: "" }
-        const conversation = requestData.conversation
-        let openAIQuery = {};
+    const requestData = req.body // Get the data from the client
+    const apiResponse = { message: "" }
+    const conversation = requestData.conversation
+    let openAIQuery = {}
 
+    try {
         openAIQuery = {
             model: "gpt-4o-mini",
             messages: [
@@ -168,13 +168,22 @@ app.post('/query', async (req, res) => {
             ],
         };
 
-        const completion = await openAIClient.chat.completions.create(openAIQuery);
-        apiResponse.message = completion.choices[0].message.content
-        apiResponse.status = 'success'
+        try {
+            const completion = await openAIClient.chat.completions.create(openAIQuery);
+            apiResponse.message = completion.choices[0].message.content
+            apiResponse.status = 'success'
+        } catch (error) {
+            apiResponse.message = 'Could not connect to the AI service.'
+            apiResponse.status = 'error'
+            console.error(error)
+        }
+
         res.json(apiResponse)
     } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' })
-        console.log(error)
+        apiResponse.message = 'Internal server error.'
+        apiResponse.status = 'error'
+        res.json(apiResponse)
+        console.error(error)
     }
 })
 
