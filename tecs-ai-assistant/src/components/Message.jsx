@@ -1,4 +1,4 @@
-function getLoadingBackground(agent)
+const getLoadingBackground = (agent) =>
 {
     if (agent === 'user')
         return 'bg-yellow-200';
@@ -6,7 +6,7 @@ function getLoadingBackground(agent)
         return 'bg-yellow-100';
 }
 
-function getStyleFromStatus(agent, status)
+const getStyleFromStatus = (agent, status) =>
 {
     if (status === 'loading')
         return 'animate-pulse' + ' ' + getLoadingBackground(agent);
@@ -16,7 +16,7 @@ function getStyleFromStatus(agent, status)
         return getLoadingBackground(agent)
 }
 
-function getStyleFromAgent(agent)
+const getStyleFromAgent = (agent) => 
 {
     if (agent === 'user')
         return 'justify-end';
@@ -24,15 +24,17 @@ function getStyleFromAgent(agent)
         return 'justify-start';
 }
 
-function Message({ agent, status, text })
+const processLinks = (text) =>
 {
     const regex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
 
     const parts = [];
     let lastIndex = 0;
 
-    text.replace(regex, (match, linkText, url, index) => {
-        if (index > lastIndex) {
+    text.replace(regex, (match, linkText, url, index) => 
+    {
+        if (index > lastIndex) 
+        {
             parts.push(text.slice(lastIndex, index));
         }
         
@@ -45,17 +47,25 @@ function Message({ agent, status, text })
         lastIndex = index + match.length;
     });
 
-    if (lastIndex < text.length) {
+    if (lastIndex < text.length) 
+    {
         parts.push(text.slice(lastIndex));
     }
 
+    return parts;
+}
+
+const Message = ({ agent, status, text }) =>
+{
+    const parts = processLinks(text);
+
     return (<div className={`flex ${getStyleFromAgent(agent)} w-full min-h-0 mb-2`}>
         <div
-                className={`text-left ${getStyleFromStatus(agent, status)} text-blue-950 text-lg max-w-max w-1/2 p-2 break-words rounded-xl`}>
-                {parts.map((part, index) => (
-                    <span key={index}>{part}</span>
-                ))}
-            </div>
+            className={`text-left ${getStyleFromStatus(agent, status)} text-blue-950 text-lg max-w-max w-1/2 p-2 break-words rounded-xl`}>
+            {parts.map((part, index) => (
+                <span key={index}>{part}</span>
+            ))}
+        </div>
 
     </div>);
 }

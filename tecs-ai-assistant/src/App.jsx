@@ -2,7 +2,8 @@ import Navbar from './components/Navbar'
 import Conversation from './components/Conversation'
 import { useState } from 'react'
 
-function App() {
+const App = () => 
+{
     return (
         <>
             <Navbar></Navbar>

@@ -5,7 +5,8 @@ import Message from "./Message";
 // Status types: 'loading', 'success', 'error'
 class MessageData
 {
-    constructor(id, agent, text, status) {
+    constructor(id, agent, text, status) 
+    {
         this.id = id;
         this.agent = agent;
         this.text = text;
@@ -15,25 +16,29 @@ class MessageData
 
 class Response
 {
-    constructor(message, status) {
+    constructor(message, status) 
+    {
         this.message = message;
         this.status = status;
     }
 }
 
-const processConversationData = (messages, userContent) => {
-    let onlySuccessfulResponses = messages.filter((messageData) => {
+const processConversationData = (messages, userContent) => 
+{
+    let onlySuccessfulResponses = messages.filter((messageData) => 
+    {
         return messageData.status === 'success'
     })
 
-    let mappedToAPIFormat = onlySuccessfulResponses.map((messageData) => {
+    let mappedToAPIFormat = onlySuccessfulResponses.map((messageData) => 
+    {
         return {role: messageData.agent, content: messageData.text};
     });
 
     return [...mappedToAPIFormat, {role: 'user', content: userContent}];
 }
 
-function Conversation()
+const Conversation = () =>
 {
     const [messages, setMessages] = useState([]);
     const [responseLoaded, setResponseLoaded] = useState(false);
@@ -46,10 +51,12 @@ function Conversation()
     const loadingText = 'Thinking...';
 
     // Check if the user is on mobile
-    useEffect(() => {
+    useEffect(() => 
+    {
         const userAgent = navigator.userAgent;
 
-        if (/iPhone|iPad|iPod|Android/i.test(userAgent)) {
+        if (/iPhone|iPad|iPod|Android/i.test(userAgent)) 
+        {
             setIsMobile(true);
         } else {
             setIsMobile(false);
@@ -57,7 +64,8 @@ function Conversation()
     }, []);
 
     // Update the response state when a response from the server is loaded
-    useEffect(() => {
+    useEffect(() => 
+    {
         if (!responseLoaded)
             return;
 
@@ -68,7 +76,8 @@ function Conversation()
     }, [responseLoaded])
 
     // Returns true if the button should be disabled, false if not
-    const isButtonDisabled = () => {
+    const isButtonDisabled = () => 
+    {
         return userContent.length === 0 || userContent === '\n';
     }
 
@@ -77,7 +86,8 @@ function Conversation()
     // Handles the process for when the user submits a message
     // Creates the next two messages: the user message and the assistant response skeleton while waiting for a response
     // If the last assistant response was unsuccessful, then it will override the unsuccessful response and user message that prompted it
-    const handleReturn = async () => {
+    const handleReturn = async () => 
+    {
         setUserContent('');
         setResponseLoaded(false);
 
@@ -93,7 +103,8 @@ function Conversation()
     }
 
     // Handles the onBlur event for the input field, updating the placeholder and text accordingly
-    const handleOnBlur = (event) => {
+    const handleOnBlur = (event) => 
+    {
         if (event.target.innerText === '' || event.target.innerText === '\n')
             event.target.innerText = placeholderText;
         else
@@ -101,11 +112,13 @@ function Conversation()
     }
 
     // Handles the onFocus event for the input field. Intended for clearing the placeholder text upon focusing
-    const handleOnFocus = (event) => {
+    const handleOnFocus = (event) => 
+    {
         event.target.innerText = '';
     }
 
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event) => 
+    {
         if (event.key == 'Shift')
             {
                 setIsHoldingShift(true);
@@ -118,7 +131,8 @@ function Conversation()
         }
     }
 
-    const handleKeyUp = (event) => {
+    const handleKeyUp = (event) => 
+    {
         setUserContent(event.target.innerText);
         if (event.key == 'Shift')
         {
