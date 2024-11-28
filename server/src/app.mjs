@@ -1,19 +1,24 @@
 import { configDotenv } from 'dotenv';
 import { OpenAI } from 'openai';
 import { setTimeout } from 'timers/promises';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import express from 'express';
 import cors from 'cors';
 
-configDotenv();
+configDotenv()
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const app = express();
 const port = 3000;
-const systemInstructionsLocation = '../docs/SystemInstructions.txt';
-const additionalInstructionsLocation = '../docs/additional_sysinstr';
+const systemInstructionsLocation = join(__dirname, '../docs/SystemInstructions.txt');
+const additionalInstructionsLocation = join(__dirname, '../docs/additional_sysinstr');
 var systemInstructions = '';
 
-const openAIClient = new OpenAI();
+const openAIClient = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
 const readSystemInstructions = async () => { 
     let instructions = await fs.readFile(systemInstructionsLocation, 'utf-8');
@@ -40,9 +45,8 @@ app.get('/test', async (req, res) => {
     try {
         const apiResponse = { message: `API test successful`, status: 'success' };
         // Send the API response as JSON with a 2 second delay
-        res = await setTimeout(2000, res);
-        res.json(apiResponse);
-    } catch (error) {
+        res.status(200).json(apiResponse);
+    } catch {
         // Handle errors here
         res.status(500).json({ error: 'API error', message: 'Something went wrong on our end.', status: 'error' });
     }

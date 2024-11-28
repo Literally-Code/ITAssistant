@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const getLoadingBackground = (agent) =>
 {
     if (agent === 'user')
@@ -69,5 +71,11 @@ const Message = ({ agent, status, text }) =>
 
     </div>);
 }
+
+Message.propTypes = {
+    agent: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired
+};
 
 export default Message

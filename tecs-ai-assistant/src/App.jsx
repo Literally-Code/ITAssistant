@@ -1,6 +1,5 @@
 import Navbar from './components/Navbar'
 import Conversation from './components/Conversation'
-import { useState } from 'react'
 
 const App = () => 
 {

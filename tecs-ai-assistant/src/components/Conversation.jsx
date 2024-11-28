@@ -69,11 +69,11 @@ const Conversation = () =>
         if (!responseLoaded)
             return;
 
-        let updatedMessages = [...messages];
+        let updatedMessages = [...messages]; 
         updatedMessages[updatedMessages.length-1] = new MessageData(updatedMessages.length-1, 'assistant', response.message, response.status)
         setMessages(updatedMessages);
         setResponse(new Response('', ''))
-    }, [responseLoaded])
+    }, [responseLoaded, messages, response.message, response.status])
 
     // Returns true if the button should be disabled, false if not
     const isButtonDisabled = () => 

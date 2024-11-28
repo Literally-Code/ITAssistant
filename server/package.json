@@ -8,12 +8,17 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "openai": "^4.68.4"
+    "express": "^4.21.1",
+    "openai": "^4.68.4",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "globals": "^15.12.0"
   }
 }
