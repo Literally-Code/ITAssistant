@@ -1,14 +1,12 @@
 import { configDotenv } from 'dotenv';
 import { OpenAI } from 'openai';
-import { setTimeout } from 'timers/promises';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import * as fs from 'fs/promises';
-import * as path from 'path';
+import { readSystemInstructions } from '../utils/fileio.mjs';
 import express from 'express';
 import cors from 'cors';
 
-configDotenv()
+configDotenv();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -19,19 +17,6 @@ const additionalInstructionsLocation = join(__dirname, '../docs/additional_sysin
 var systemInstructions = '';
 
 const openAIClient = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
-
-const readSystemInstructions = async () => { 
-    let instructions = await fs.readFile(systemInstructionsLocation, 'utf-8');
-    const files = await fs.readdir(additionalInstructionsLocation, 'utf-8');
-
-    for (let file of files) {
-        const filePath = path.join(additionalInstructionsLocation, file);
-        let fileContent =  await fs.readFile(filePath, 'utf-8', );
-        instructions += '\n' + fileContent;
-    }
-
-    return instructions;
-}
 
 // Root route
 app.use(express.static('tecs-ai-assistant/dist'));
@@ -50,7 +35,7 @@ app.get('/test', async (req, res) => {
         // Handle errors here
         res.status(500).json({ error: 'API error', message: 'Something went wrong on our end.', status: 'error' });
     }
-})
+});
 
 app.post('/query', async (req, res) => {
     const requestData = req.body; // Get the data from the client
@@ -84,9 +69,11 @@ app.post('/query', async (req, res) => {
         res.json(apiResponse);
         console.error(error);
     }
-})
+});
 
 app.listen(port, async () => {
-    systemInstructions = await readSystemInstructions();
+    systemInstructions = await readSystemInstructions(systemInstructionsLocation, additionalInstructionsLocation);
     console.log(`Server listening on port ${port}`);
-})
+});
+
+exports 

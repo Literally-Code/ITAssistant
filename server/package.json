@@ -8,7 +8,9 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "vitest"
+    "test": "vitest", 
+    "lint": "eslint .", 
+    "lintfix": "eslint . --fix"
   },
   "author": "",
   "license": "ISC",
