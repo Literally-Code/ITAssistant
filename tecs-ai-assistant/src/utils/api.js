@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const handleResponseError = (error) => 
 {
@@ -7,7 +7,7 @@ const handleResponseError = (error) =>
         message: 'Could not connect to the server. Check your internet connection and try again.', 
         status: 'error'
     };
-}
+};
 
 export const fetchTest = async () => 
 {
@@ -21,7 +21,7 @@ export const fetchTest = async () =>
     {
         return handleResponseError(error);
     }
-}
+};
 
 export const getAssistantResponse = async (conversation) => 
 {
@@ -41,10 +41,10 @@ export const getAssistantResponse = async (conversation) =>
             )
         });
         const json = await response.json();
-        return json
+        return json;
     } 
     catch (error) 
     {
-        return handleResponseError(error)
+        return handleResponseError(error);
     }
-}
+};

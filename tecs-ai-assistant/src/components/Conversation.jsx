@@ -27,8 +27,8 @@ const processConversationData = (messages, userContent) =>
 {
     let onlySuccessfulResponses = messages.filter((messageData) => 
     {
-        return messageData.status === 'success'
-    })
+        return messageData.status === 'success';
+    });
 
     let mappedToAPIFormat = onlySuccessfulResponses.map((messageData) => 
     {
@@ -36,7 +36,7 @@ const processConversationData = (messages, userContent) =>
     });
 
     return [...mappedToAPIFormat, {role: 'user', content: userContent}];
-}
+};
 
 const Conversation = () =>
 {
@@ -70,16 +70,16 @@ const Conversation = () =>
             return;
 
         let updatedMessages = [...messages]; 
-        updatedMessages[updatedMessages.length-1] = new MessageData(updatedMessages.length-1, 'assistant', response.message, response.status)
+        updatedMessages[updatedMessages.length-1] = new MessageData(updatedMessages.length-1, 'assistant', response.message, response.status);
         setMessages(updatedMessages);
-        setResponse(new Response('', ''))
-    }, [responseLoaded, messages, response.message, response.status])
+        setResponse(new Response('', ''));
+    }, [responseLoaded, messages, response.message, response.status]);
 
     // Returns true if the button should be disabled, false if not
     const isButtonDisabled = () => 
     {
         return userContent.length === 0 || userContent === '\n';
-    }
+    };
 
     // Event Handlers
 
@@ -96,11 +96,11 @@ const Conversation = () =>
             new MessageData(currentMessages.length, 'user', userContent, 'success'), 
             new MessageData(currentMessages.length + 1, 'assistant', loadingText, 'loading')]);
         
-        let processedConversationData = processConversationData(currentMessages, userContent) 
+        let processedConversationData = processConversationData(currentMessages, userContent); 
         const fetchRes = await getAssistantResponse(processedConversationData);
         setResponse(fetchRes);
         setResponseLoaded(true);
-    }
+    };
 
     // Handles the onBlur event for the input field, updating the placeholder and text accordingly
     const handleOnBlur = (event) => 
@@ -109,13 +109,13 @@ const Conversation = () =>
             event.target.innerText = placeholderText;
         else
             event.target.innerText;
-    }
+    };
 
     // Handles the onFocus event for the input field. Intended for clearing the placeholder text upon focusing
     const handleOnFocus = (event) => 
     {
         event.target.innerText = '';
-    }
+    };
 
     const handleKeyDown = (event) => 
     {
@@ -129,7 +129,7 @@ const Conversation = () =>
             event.target.blur();
             handleReturn();
         }
-    }
+    };
 
     const handleKeyUp = (event) => 
     {
@@ -138,7 +138,7 @@ const Conversation = () =>
         {
             setIsHoldingShift(false);
         }
-    }
+    };
 
     return (
         <>
@@ -156,14 +156,14 @@ const Conversation = () =>
             </div>
             <div className="fixed w-full bottom-2">
                 <div className={"flex items-end rounded-xl p-2 flex-grow ml-1 mr-1 h-max bg-blue-400"}>
-                    <div contentEditable="true" suppressContentEditableWarning={true} onBlur={handleOnBlur} onFocus={handleOnFocus} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} data-placeholder={placeholderText} className="p-1 h-max max-h-32 overflow-auto resize-none flex-grow placeholder:text-slate-300 text-white text-lg bg-transparent rounded">{placeholderText}</div>
-                    <button onClick={handleReturn} disabled={isButtonDisabled()} className={`flex justify-center items-center text-3xl border p-2 ml-1 w-9 h-9 rounded ${isButtonDisabled() ? "bg-transparent text-blue-500" : "bg-blue-500 text-black"}`}>
+                    <div data-testid="input" contentEditable="true" suppressContentEditableWarning={true} onBlur={handleOnBlur} onFocus={handleOnFocus} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} data-placeholder={placeholderText} className="p-1 h-max max-h-32 overflow-auto resize-none flex-grow placeholder:text-slate-300 text-white text-lg bg-transparent rounded">{placeholderText}</div>
+                    <button data-testid="submit" onClick={handleReturn} disabled={isButtonDisabled()} className={`flex justify-center items-center text-3xl border p-2 ml-1 w-9 h-9 rounded ${isButtonDisabled() ? "bg-transparent text-blue-500" : "bg-blue-500 text-black"}`}>
                         <div>➤</div>
                     </button>
                 </div>
             </div>
         </>
     );
-}
+};
 
 export default Conversation;

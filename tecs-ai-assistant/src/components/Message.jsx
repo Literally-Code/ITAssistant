@@ -6,7 +6,7 @@ const getLoadingBackground = (agent) =>
         return 'bg-yellow-200';
     if (agent === 'assistant')
         return 'bg-yellow-100';
-}
+};
 
 const getStyleFromStatus = (agent, status) =>
 {
@@ -15,8 +15,8 @@ const getStyleFromStatus = (agent, status) =>
     if (status === 'error')
         return 'bg-red-200';
     if (status === 'success')
-        return getLoadingBackground(agent)
-}
+        return getLoadingBackground(agent);
+};
 
 const getStyleFromAgent = (agent) => 
 {
@@ -24,7 +24,7 @@ const getStyleFromAgent = (agent) =>
         return 'justify-end';
     if (agent === 'assistant')
         return 'justify-start';
-}
+};
 
 const processLinks = (text) =>
 {
@@ -55,7 +55,7 @@ const processLinks = (text) =>
     }
 
     return parts;
-}
+};
 
 const Message = ({ agent, status, text }) =>
 {
@@ -70,7 +70,7 @@ const Message = ({ agent, status, text }) =>
         </div>
 
     </div>);
-}
+};
 
 Message.propTypes = {
     agent: PropTypes.string.isRequired,
@@ -78,4 +78,4 @@ Message.propTypes = {
     text: PropTypes.string.isRequired
 };
 
-export default Message
+export default Message;

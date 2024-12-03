@@ -1,5 +1,5 @@
-import Navbar from './components/Navbar'
-import Conversation from './components/Conversation'
+import Navbar from './components/Navbar';
+import Conversation from './components/Conversation';
 
 const App = () => 
 {
@@ -10,7 +10,7 @@ const App = () =>
                 <Conversation></Conversation>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default App
+export default App;
