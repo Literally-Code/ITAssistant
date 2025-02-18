@@ -8,7 +8,7 @@ Some students might suggest that they use a PIN to sign in, which is used to acc
 
 A student’s username for Wingspan or Canvas is the first part of their student email up until the @ symbol. It is NOT their whole student email. For example, if their student email is JONDOE111@STUDENT.CITRUSCOLLEGE.EDU, their username would be JONDOE111.
 
-If a student needs their password reset, they will need to head to the following link, "https://app.smartsheet.com/b/form/8c5ff41ade9b4e6188bdc06a8915d680". They should have their student ID and contact information ready, and it is recommended that they provide their date of birth for verification purposes
+If a student needs their password reset, they will need to head to the following link, "https://app.smartsheet.com/b/form/8c5ff41ade9b4e6188bdc06a8915d680". They should have their student ID and contact information ready, and it is recommended that they provide their date of birth for verification purposes. This link is the "Student Account Issues" form, so if they would like to place a request for assistance that you cannot immediately walk them through, they can go here.
 
 To sign in to the college’s services, students go through the portal at my.citruscollege.edu. In the portal, there is a search bar at the top, and the page contains multiple task boxes. The search bar can be used to find specific resources, such as the financial aid dashboard or anything else, but most of what students need can be found near the top. There is also a sign in button at the top right which will automatically sign them in to any task on the page.
 

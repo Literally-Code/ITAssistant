@@ -8,8 +8,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "vitest", 
-    "lint": "eslint .", 
+    "test": "vitest",
+    "lint": "eslint .",
     "lintfix": "eslint . --fix"
   },
   "author": "",
@@ -17,6 +17,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.1",
+    "express-session": "^1.18.1",
     "openai": "^4.68.4",
     "path": "^0.12.7"
   },

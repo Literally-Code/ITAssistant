@@ -7,7 +7,9 @@ export default {
     theme: {
         extend: {
             colors: {
-                'citrus-blue': '#006298'
+                'citrus-blue': '#006298',
+                'citrus-orange': '#f8991c', 
+                'tecs-blue': '#44aadf'
             }
         },
     },

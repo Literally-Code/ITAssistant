@@ -48,3 +48,72 @@ export const getAssistantResponse = async (conversation) =>
         return handleResponseError(error);
     }
 };
+
+export const postAuth = async (username, password) => 
+{
+    try 
+    {
+        const response = await fetch(`${API_BASE_URL}/login`, 
+        {
+            method: 'POST',
+            headers: 
+            {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                {
+                    username: username,
+                    password: password
+                }
+            )
+        });
+        const json = await response.json();
+        return json;
+    } 
+    catch (error) 
+    {
+        return handleResponseError(error);
+    }
+};
+
+export const checkAuth = async () => 
+{
+    try 
+    {
+        const response = await fetch(`${API_BASE_URL}/check-auth`, 
+        {
+            method: 'GET',
+            headers: 
+            {
+                'Content-Type': 'application/json',
+            }
+        });
+        const json = await response.json();
+        return json;
+    } 
+    catch (error) 
+    {
+        return handleResponseError(error);
+    }
+}
+
+export const postLogout = async () => 
+{
+    try 
+    {
+        const response = await fetch(`${API_BASE_URL}/logout`, 
+        {
+            method: 'POST',
+            headers: 
+            {
+                'Content-Type': 'application/json',
+            }
+        });
+        const json = await response.json();
+        return json;
+    } 
+    catch (error) 
+    {
+        return handleResponseError(error);
+    }
+};

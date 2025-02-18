@@ -73,7 +73,7 @@ const Conversation = () =>
         updatedMessages[updatedMessages.length-1] = new MessageData(updatedMessages.length-1, 'assistant', response.message, response.status);
         setMessages(updatedMessages);
         setResponse(new Response('', ''));
-    }, [responseLoaded, messages, response.message, response.status]);
+    }, [responseLoaded]);
 
     // Returns true if the button should be disabled, false if not
     const isButtonDisabled = () => 
@@ -143,19 +143,19 @@ const Conversation = () =>
     return (
         <>
             <div className="flex flex-col flex-grow m-3 w-11/12 h-11/12">
-                <div className="flex-grow bottom-0 p-4 bg-transparent">
+                <div className="flex-grow mb-8 p-4 bg-transparent">
                     {messages.map((message) => (
                         <Message key={message.id} agent={message.agent} status={message.status} text={message.text} />
                     ))}
                     <div className={messages.length > 0 ? "hidden" : ""}>
                         <h1 className="text-3xl font-bold text-black">Citrus College AI Tech Support</h1>
-                        <p className="text-gray-900">*This service is intended only for assistance regarding Citrus College. We kindly ask that you avoid any other topics!</p>
-                        <p className="text-black animate-bounce pt-1 font-medium">Send a message to get started!</p>
+                        <p className="text-gray-500">*This service is intended only for assistance regarding Citrus College. We kindly ask that you avoid any other topics!</p>
+                        <p className="text-tecs-blue animate-bounce pt-1 font-medium">Send a message to get started!</p>
                     </div>
                 </div>
             </div>
             <div className="fixed w-full bottom-2">
-                <div className={"flex items-end rounded-xl p-2 flex-grow ml-1 mr-1 h-max bg-blue-400"}>
+                <div className={"flex items-end rounded-xl p-2 flex-grow ml-1 mr-1 h-max bg-citrus-blue"}>
                     <div data-testid="input" contentEditable="true" suppressContentEditableWarning={true} onBlur={handleOnBlur} onFocus={handleOnFocus} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} data-placeholder={placeholderText} className="p-1 h-max max-h-32 overflow-auto resize-none flex-grow placeholder:text-slate-300 text-white text-lg bg-transparent rounded">{placeholderText}</div>
                     <button data-testid="submit" onClick={handleReturn} disabled={isButtonDisabled()} className={`flex justify-center items-center text-3xl border p-2 ml-1 w-9 h-9 rounded ${isButtonDisabled() ? "bg-transparent text-blue-500" : "bg-blue-500 text-black"}`}>
                         <div>➤</div>

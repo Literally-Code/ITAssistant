@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 const getLoadingBackground = (agent) =>
 {
     if (agent === 'user')
-        return 'bg-yellow-200';
+        return 'bg-tecs-blue';
     if (agent === 'assistant')
-        return 'bg-yellow-100';
+        return 'bg-citrus-orange text-white';
 };
 
 const getStyleFromStatus = (agent, status) =>

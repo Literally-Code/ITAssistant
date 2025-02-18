@@ -1,15 +1,16 @@
-import Navbar from './components/Navbar';
-import Conversation from './components/Conversation';
+import Login from './components/Login';
+import Chat from './components/Chat';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => 
 {
     return (
-        <>
-            <Navbar></Navbar>
-            <div className="flex justify-center mt-14">
-                <Conversation></Conversation>
-            </div>
-        </>
+        <Router>
+            <Routes>
+                <Route path='/' element={<Login />} />
+                <Route path='/chat' element={<Chat />} />
+            </Routes>
+        </Router>
     );
 };
 
