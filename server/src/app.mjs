@@ -40,31 +40,52 @@ app.use(cors({
 
 app.use(session({
     secret: 'supersecretkey',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: { 
+        secure: false, 
+        sameSite: 'lax'
+    }
 }))
+
+
+app.get('/check-auth', async (req, res) => {
+    const apiResponse = {success: false, user: null};
+
+    try {
+        if (req.session.user)
+        {
+            apiResponse.success = true;
+            apiResponse.user = req.session.user;
+            res.status(200);
+        }
+        else
+        {
+            res.status(401);
+        }
+
+        res.json(apiResponse);
+    } catch (error) {
+        console.log(error);
+    }
+})
 
 app.get('/test', async (req, res) => {
     try {
         const apiResponse = { message: `API test successful`, status: 'success' };
-        // Send the API response as JSON with a 2 second delay
         res.status(200).json(apiResponse);
     } catch {
-        // Handle errors here
         res.status(500).json({ error: 'API error', message: 'Something went wrong on our end.', status: 'error' });
     }
 });
 
-app.get('/check-auth', async (req, res) => {
-    if (req.session.user)
-    {
-        return { success: true, user: req.session.user };
-    }
-    return { success: false };
-})
 
 app.post('/query', async (req, res) => {
+    if (!req.session.user)
+    {
+        return res.status(401).json({message: "nuh uh uh"});
+    }
+
     const requestData = req.body; // Get the data from the client
     const apiResponse = { message: "" };
     const conversation = requestData.conversation;
@@ -99,27 +120,48 @@ app.post('/query', async (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    console.log(req);
     const { username, password } = req.body;
+    const apiResponse = {success: false, user: null, message: null};
     if (mockUsers[username] && mockUsers[username] === password) {
-        req.session.user = username;
-        return res.status(200).json({ success: true, message: 'Login successful' });
+        req.session.user = { username };
+        apiResponse.success = true;
+        apiResponse.user = username;
+        apiResponse.message = "Login success";
+        res.status(200);
+    }
+    else
+    {
+        apiResponse.success = false;
+        apiResponse.user = null;
+        apiResponse.message = "Invalid credentials";
+        res.status(401);
     }
 
-    res.status(401).json({ success: false, message: 'Invalid credentials' });
+
+    res.json(apiResponse);
 });
 
 app.post('/logout', (req, res) => {
+    const apiResponse = {success: true};
     req.session.destroy(() => {
-        res.json({ success: true, message: 'Logged out' });
+        res.clearCookie('connect.sid');
+        res.status(200).json(apiResponse);
     });
 });
 
 app.get('/chat', (req, res) => {
+    const apiResponse = {success: false};
+
     if (req.session.user) {
-        return res.json({ success: true, message: `Welcome, ${req.session.user}` });
+        apiResponse.success = false;
+        res.status(200)
     }
-    res.status(401).json({ success: false, message: 'Unauthorized' });
+    else
+    {
+        apiResponse.success = false;
+        res.status(401)
+    }
+    res.json(apiResponse);
 });
 
 app.listen(port, async () => {

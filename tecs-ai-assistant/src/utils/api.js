@@ -9,11 +9,24 @@ const handleResponseError = (error) =>
     };
 };
 
-export const fetchTest = async () => 
+export const fetchTest = async (echo) => 
 {
     try 
     {
-        const response = await fetch(`${API_BASE_URL}/test`);
+        const response = await fetch(`${API_BASE_URL}/test`, 
+            {
+                method: 'POST',
+                headers: 
+                {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(
+                    {
+                        message: echo
+                    }
+                )
+            }
+        );
         const json = await response.json();
         return json;
     } 
@@ -30,6 +43,7 @@ export const getAssistantResponse = async (conversation) =>
         const response = await fetch(`${API_BASE_URL}/query`, 
         {
             method: 'POST',
+            credentials: 'include', 
             headers: 
             {
                 'Content-Type': 'application/json',
@@ -56,6 +70,7 @@ export const postAuth = async (username, password) =>
         const response = await fetch(`${API_BASE_URL}/login`, 
         {
             method: 'POST',
+            credentials: 'include', 
             headers: 
             {
                 'Content-Type': 'application/json',
@@ -83,13 +98,13 @@ export const checkAuth = async () =>
         const response = await fetch(`${API_BASE_URL}/check-auth`, 
         {
             method: 'GET',
+            credentials: 'include', 
             headers: 
             {
                 'Content-Type': 'application/json',
             }
         });
-        const json = await response.json();
-        return json;
+        return await response.json();;
     } 
     catch (error) 
     {
@@ -104,13 +119,13 @@ export const postLogout = async () =>
         const response = await fetch(`${API_BASE_URL}/logout`, 
         {
             method: 'POST',
+            credentials: 'include',
             headers: 
             {
                 'Content-Type': 'application/json',
             }
         });
-        const json = await response.json();
-        return json;
+        return await response.json();
     } 
     catch (error) 
     {
