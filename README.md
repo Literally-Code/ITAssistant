@@ -21,7 +21,8 @@ This AI-powered assistant helps users by answering questions that are commonly a
 4. Response is sent back to the React frontend for display.  
 
 ## 📷 Screenshots
-![Index](./assets/screenshots/presentation1.png)
-![App in Action](./assets/screenshots/presentation2.png)
+![Login Page](./assets/screenshots/loginpage.png)
+![Chat Page](./assets/screenshots/chatpage.png)
+![App in Action](./assets/screenshots/chatted.png)
 
 **Author:** Jonathan Woline | [GitHub](https://github.com/Literally-Code)
