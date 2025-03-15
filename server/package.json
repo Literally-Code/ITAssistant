@@ -10,7 +10,8 @@
   "scripts": {
     "test": "vitest",
     "lint": "eslint .",
-    "lintfix": "eslint . --fix"
+    "lintfix": "eslint . --fix", 
+    "start": "cd src && node app.mjs"
   },
   "author": "",
   "license": "ISC",
