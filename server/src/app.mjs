@@ -30,15 +30,15 @@ if (!process.env.OPENAI_API_KEY)
 const openAIClient = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
 // Root route
-// app.use(express.static(join(__dirname, '../../tecs-ai-assistant/dist')));
+app.use(express.static(join(__dirname, '../dist')));
 app.use(express.json());
-// For dev server
-app.use(cors({
-    origin: process.env.CORS_ORIGIN, 
-    credentials: true
-}));
 
-app.options('*', cors());
+// app.use(cors({
+//     origin: process.env.CORS_ORIGIN, 
+//     credentials: true
+// }));
+
+// app.options('*', cors());
 
 app.use(session({
     secret: 'supersecretkey',
