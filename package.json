@@ -19,7 +19,8 @@
   },
   "scripts": {
     "build": "cd tecs-ai-assistant && npm run build",
-    "start": "cd server && npm run start"
+    "start": "cd server && npm run start", 
+    "packages": "npm install && cd tecs-ai-assistant && npm install && cd ../server && npm install"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
