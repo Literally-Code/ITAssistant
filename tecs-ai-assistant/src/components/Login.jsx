@@ -20,12 +20,15 @@ const Auth = () =>
 
     return <>
         <Navbar></Navbar>
-        <form className="flex flex-col space-y-4 p-4 ml-5 mr-5 h-full mt-32" onSubmit={handleLogin}>
-            {loginAttempted && !user ? <p className="text-red-500">Invalid username or password</p> : null}
-            <input className="bg-gray-200 p-2" type="text" placeholder="Username" onChange={(element) => {setUsername(element.target.value)}} value={username} required />
-            <input className="bg-gray-200 p-2" type="password" placeholder="Password" onChange={(element) => {setPassword(element.target.value)}} value={password} required />
-            <button className="bg-citrus-blue text-white p-2" type="submit">Log In</button>
-        </form>
+        <div className="flex justify-center align-middle">
+            <form className="shadow-black flex flex-col gap-4 p-4 w-[80vw] h-full mt-32" onSubmit={handleLogin}>
+                <h1 className="p-2 text-2xl text-black">Sign In</h1>
+                <input className="bg-gray-300 p-2" type="text" placeholder="Username" onChange={(element) => {setUsername(element.target.value)}} value={username} required />
+                <input className="bg-gray-300 p-2" type="password" placeholder="Password" onChange={(element) => {setPassword(element.target.value)}} value={password} required />
+                <p className={`text-red-500 ${loginAttempted && !user ? "visible" : "invisible"}`}>Invalid username or password</p>
+                <button className="bg-citrus-blue text-white p-2" type="submit">Log In</button>
+            </form>
+        </div>
     </>
 };
 
