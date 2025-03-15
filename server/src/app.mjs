@@ -38,6 +38,8 @@ app.use(cors({
     credentials: true
 }));
 
+app.options('*', cors());
+
 app.use(session({
     secret: 'supersecretkey',
     resave: true,
