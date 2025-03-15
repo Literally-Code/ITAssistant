@@ -1,5 +1,11 @@
 # TeCS AI Assistant
-This AI-powered assistant helps users by answering questions that are commonly asked at the TeCS help desk. Built on React and Node.js, it integrates the OpenAI API to provide intelligent responses to user queries. **Check out a small demo [here](https://itassistant.csproject.org/)!** (OpenAI's API takes a small fee for each token generated, so this demo is limited).
+This AI-powered assistant helps users by answering questions that are commonly asked at the TeCS help desk. Built on React and Node.js, it integrates the OpenAI API to provide intelligent responses to user queries.
+
+**Check out a small demo [here](https://itassistant.onrender.com/)!** (OpenAI's API takes a small fee for each token generated, so this demo is limited).
+
+Username: testuser
+
+Password: password123
 
 ## 📌 Features:
 - AI-powered responses using the **OpenAI API** to generate helpful, context-aware answers.  
