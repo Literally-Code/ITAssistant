@@ -173,9 +173,9 @@ app.get('/api/chat', (req, res) => {
     res.json(apiResponse);
 });
 
-// app.get('*', (req, res) => {
-//     res.sendFile(join(__dirname, '../../tecs-ai-assistant/dist/index.html'));
-// });
+app.get('*', (req, res) => {
+    res.sendFile(join(__dirname, '../../tecs-ai-assistant/dist/index.html'));
+});
 
 app.listen(port, async () => {
     systemInstructions = await readSystemInstructions(systemInstructionsLocation, additionalInstructionsLocation);
