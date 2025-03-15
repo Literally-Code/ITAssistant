@@ -30,11 +30,11 @@ if (!process.env.OPENAI_API_KEY)
 const openAIClient = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
 // Root route
-app.use(express.static(join(__dirname, '../../tecs-ai-assistant/dist')));
+// app.use(express.static(join(__dirname, '../../tecs-ai-assistant/dist')));
 app.use(express.json());
 // For dev server
 app.use(cors({
-    origin: 'http://localhost:5173', 
+    origin: process.env.CORS_ORIGIN, 
     credentials: true
 }));
 
@@ -171,9 +171,9 @@ app.get('/api/chat', (req, res) => {
     res.json(apiResponse);
 });
 
-app.get('*', (req, res) => {
-    res.sendFile(join(__dirname, '../../tecs-ai-assistant/dist/index.html'));
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(join(__dirname, '../../tecs-ai-assistant/dist/index.html'));
+// });
 
 app.listen(port, async () => {
     systemInstructions = await readSystemInstructions(systemInstructionsLocation, additionalInstructionsLocation);

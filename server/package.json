@@ -10,13 +10,14 @@
   "scripts": {
     "test": "vitest",
     "lint": "eslint .",
-    "lintfix": "eslint . --fix", 
+    "lintfix": "eslint . --fix",
     "start": "cd src && node app.mjs"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "express-session": "^1.18.1",
     "openai": "^4.68.4",
