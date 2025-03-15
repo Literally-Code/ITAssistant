@@ -174,7 +174,7 @@ app.get('/api/chat', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(join(__dirname, '../../tecs-ai-assistant/dist/index.html'));
+    res.sendFile(join(__dirname, '../dist/index.html'));
 });
 
 app.listen(port, async () => {
