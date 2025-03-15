@@ -1,7 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { checkAuth, postAuth, postLogout } from "../utils/api";
-import { fetchTest } from "../utils/api";
-
 
 const AuthContext = createContext();
 

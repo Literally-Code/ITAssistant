@@ -30,7 +30,7 @@ if (!process.env.OPENAI_API_KEY)
 const openAIClient = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
 // Root route
-app.use(express.static('tecs-ai-assistant/dist'));
+app.use(express.static(join(__dirname, '../../tecs-ai-assistant/dist')));
 app.use(express.json());
 // For dev server
 app.use(cors({
@@ -49,9 +49,8 @@ app.use(session({
 }))
 
 
-app.get('/check-auth', async (req, res) => {
+app.get('/api/check-auth', async (req, res) => {
     const apiResponse = {success: false, user: null};
-
     try {
         if (req.session.user)
         {
@@ -70,7 +69,7 @@ app.get('/check-auth', async (req, res) => {
     }
 })
 
-app.get('/test', async (req, res) => {
+app.get('/api/test', async (req, res) => {
     try {
         const apiResponse = { message: `API test successful`, status: 'success' };
         res.status(200).json(apiResponse);
@@ -80,7 +79,7 @@ app.get('/test', async (req, res) => {
 });
 
 
-app.post('/query', async (req, res) => {
+app.post('/api/query', async (req, res) => {
     if (!req.session.user)
     {
         return res.status(401).json({message: "nuh uh uh"});
@@ -90,6 +89,13 @@ app.post('/query', async (req, res) => {
     const apiResponse = { message: "" };
     const conversation = requestData.conversation;
     let openAIQuery = {};
+
+    if (process.env.DEMO_MODE)
+    {
+        apiResponse.message = "A call to OpenAI's API would have been made, however this is just a demo!";
+        apiResponse.status = 'success';
+        return res.json(apiResponse);
+    }
 
     try {
         openAIQuery = {
@@ -119,7 +125,7 @@ app.post('/query', async (req, res) => {
     }
 });
 
-app.post('/login', (req, res) => {
+app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
     const apiResponse = {success: false, user: null, message: null};
     if (mockUsers[username] && mockUsers[username] === password) {
@@ -141,7 +147,7 @@ app.post('/login', (req, res) => {
     res.json(apiResponse);
 });
 
-app.post('/logout', (req, res) => {
+app.post('/api/logout', (req, res) => {
     const apiResponse = {success: true};
     req.session.destroy(() => {
         res.clearCookie('connect.sid');
@@ -149,19 +155,24 @@ app.post('/logout', (req, res) => {
     });
 });
 
-app.get('/chat', (req, res) => {
-    const apiResponse = {success: false};
+app.get('/api/chat', (req, res) => {
+    const apiResponse = {message: "", success: false};
 
     if (req.session.user) {
-        apiResponse.success = false;
-        res.status(200)
+        apiResponse.success = true;
+        res.status(200);
     }
     else
     {
+        apiResponse.message = "Not Authorized";
         apiResponse.success = false;
-        res.status(401)
+        res.status(401);
     }
     res.json(apiResponse);
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(join(__dirname, '../../tecs-ai-assistant/dist/index.html'));
 });
 
 app.listen(port, async () => {
